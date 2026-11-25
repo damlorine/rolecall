@@ -1,17 +1,30 @@
 # RoleCall: Theater Cast Scheduling System
 
-RoleCall is a backend system for theater groups to manage productions, rehearsal schedules, actor availability, and cast assignments. Directors can organize rehearsals and cast members, while actors can submit their availability so scheduling conflicts can be spotted early.
-
-Final project for ITEC 116 - Systems Integration.
+RoleCall is a theater cast scheduling backend prototype built for ITEC 116 (Systems Integration). It helps directors manage theater productions, rehearsals, and cast assignments while actors submit their availability, with conflict checks to prevent double-booking.
 
 ## Tech Stack
 
 - NestJS (TypeScript)
 - TypeORM
 - MySQL
-- JWT Authentication
+- JWT Authentication & bcryptjs
 - Postman (API testing)
 
-## Status
+## Running Locally
 
-Work in progress. Setup and run instructions will be added as the project is built.
+1. Create a MySQL database (for example, `rolecall_db`).
+2. Copy `.env.example` to `.env` and fill in your local MySQL credentials and `JWT_SECRET`.
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+4. Start the server:
+
+```bash
+npm run start:dev
+```
+
+- API base URL: `http://localhost:3000/api/v1`
+- Simple web interface: `http://localhost:3000`
