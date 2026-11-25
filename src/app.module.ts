@@ -7,7 +7,9 @@ import { AuthModule } from './auth/auth.module.js';
 import { Availability } from './availabilities/entities/availability.entity.js';
 import { CastAssignment } from './cast-assignments/entities/cast-assignment.entity.js';
 import { Production } from './productions/entities/production.entity.js';
+import { ProductionsModule } from './productions/productions.module.js';
 import { Rehearsal } from './rehearsals/entities/rehearsal.entity.js';
+import { RehearsalsModule } from './rehearsals/rehearsals.module.js';
 import { User } from './users/entities/user.entity.js';
 import { UsersModule } from './users/users.module.js';
 
@@ -31,6 +33,8 @@ import { UsersModule } from './users/users.module.js';
     }),
     AuthModule,
     UsersModule,
+    ProductionsModule,
+    RehearsalsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
