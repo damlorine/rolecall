@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoleCall - Theater Cast Scheduling</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>RoleCall</h1>
+    <div id="userBar" class="hidden">
+      <span id="userLabel"></span>
+      <button id="logoutBtn" type="button">Logout</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="messageBox" class="message hidden"></div>
+
+    <section id="authSection" class="auth-grid">
+      <div class="box">
+        <h2>Login</h2>
+        <form id="loginForm">
+          <label>Email
+            <input type="email" id="loginEmail" required>
+          </label>
+          <label>Password
+            <input type="password" id="loginPassword" required>
+          </label>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+
+      <div class="box">
+        <h2>Register</h2>
+        <form id="registerForm">
+          <label>Full Name
+            <input type="text" id="regName" required>
+          </label>
+          <label>Email
+            <input type="email" id="regEmail" required>
+          </label>
+          <label>Password
+            <input type="password" id="regPassword" minlength="6" required>
+          </label>
+          <label>Role
+            <select id="regRole">
+              <option value="actor">Actor</option>
+              <option value="director">Director</option>
+            </select>
+          </label>
+          <button type="submit">Create Account</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="appSection" class="hidden">
+      <nav class="tabs">
+        <button type="button" class="tab active" data-tab="productions">Productions</button>
+        <button type="button" class="tab" data-tab="rehearsals">Rehearsals</button>
+        <button type="button" class="tab" data-tab="availabilities">Availabilities</button>
+        <button type="button" class="tab" data-tab="assignments">Cast Assignments</button>
+      </nav>
+
+      <div id="tab-productions" class="tab-panel">
+        <div id="productionFormBox" class="box hidden">
+          <h3>Add Production</h3>
+          <form id="productionForm" class="form-row">
+            <input type="text" id="prodTitle" placeholder="Title" required>
+            <input type="text" id="prodVenue" placeholder="Venue">
+            <input type="date" id="prodStart" required>
+            <input type="date" id="prodEnd" required>
+            <input type="text" id="prodDesc" placeholder="Description">
+            <button type="submit">Add</button>
+          </form>
+        </div>
+
+        <div class="box">
+          <h3>Productions</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Venue</th>
+                <th>Dates</th>
+                <th>Director</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="productionsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-rehearsals" class="tab-panel hidden">
+        <div id="rehearsalFormBox" class="box hidden">
+          <h3>Schedule Rehearsal</h3>
+          <form id="rehearsalForm" class="form-row">
+            <select id="rehProduction" required></select>
+            <input type="text" id="rehTitle" placeholder="Rehearsal title" required>
+            <input type="text" id="rehLocation" placeholder="Location">
+            <input type="date" id="rehDate" required>
+            <input type="time" id="rehStart" required>
+            <input type="time" id="rehEnd" required>
+            <input type="text" id="rehNotes" placeholder="Notes">
+            <button type="submit">Schedule</button>
+          </form>
+        </div>
+
+        <div class="box">
+          <h3>Rehearsals</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Production</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Location</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="rehearsalsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-availabilities" class="tab-panel hidden">
+        <div id="availabilityFormBox" class="box hidden">
+          <h3>Submit Availability</h3>
+          <form id="availabilityForm" class="form-row">
+            <input type="date" id="availDate" required>
+            <input type="time" id="availStart" required>
+            <input type="time" id="availEnd" required>
+            <select id="availStatus">
+              <option value="available">Available</option>
+              <option value="unavailable">Unavailable</option>
+            </select>
+            <input type="text" id="availNote" placeholder="Note">
+            <button type="submit">Save</button>
+          </form>
+        </div>
+
+        <div class="box">
+          <h3>Actor Availabilities</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Actor</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Note</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="availabilitiesTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-assignments" class="tab-panel hidden">
+        <div id="assignmentFormBox" class="box hidden">
+          <h3>Assign Actor to Rehearsal</h3>
+          <form id="assignmentForm" class="form-row">
+            <select id="assignRehearsal" required></select>
+            <select id="assignActor" required></select>
+            <input type="text" id="assignRole" placeholder="Character / Role" required>
+            <input type="text" id="assignNotes" placeholder="Notes">
+            <button type="submit">Assign</button>
+          </form>
+        </div>
+
+        <div class="box">
+          <h3>Cast Assignments</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Rehearsal</th>
+                <th>Date &amp; Time</th>
+                <th>Actor</th>
+                <th>Role</th>
+                <th>Notes</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="assignmentsTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

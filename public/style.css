@@ -1,0 +1,166 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f4f4;
+  color: #222;
+}
+
+.topbar {
+  background: #222;
+  color: #fff;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.box {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.box h2,
+.box h3 {
+  margin-top: 0;
+}
+
+.auth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+input,
+select {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border: 1px solid #bbb;
+  font-size: 14px;
+}
+
+button {
+  padding: 8px 14px;
+  background: #1f5fa8;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background: #174a84;
+}
+
+button.delete-btn {
+  background: #b83227;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+button.delete-btn:hover {
+  background: #8f251c;
+}
+
+#logoutBtn {
+  background: #555;
+  margin-left: 10px;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.tab {
+  background: #ddd;
+  color: #222;
+}
+
+.tab.active {
+  background: #1f5fa8;
+  color: #fff;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+  align-items: end;
+}
+
+.form-row input,
+.form-row select {
+  margin-top: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background: #eee;
+}
+
+.message {
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  border: 1px solid transparent;
+  font-size: 14px;
+}
+
+.message.ok {
+  background: #dff0d8;
+  border-color: #b2dba1;
+  color: #2c662d;
+}
+
+.message.err {
+  background: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .auth-grid {
+    grid-template-columns: 1fr;
+  }
+}
