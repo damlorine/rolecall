@@ -4,7 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { AuthModule } from './auth/auth.module.js';
+import { AvailabilitiesModule } from './availabilities/availabilities.module.js';
 import { Availability } from './availabilities/entities/availability.entity.js';
+import { CastAssignmentsModule } from './cast-assignments/cast-assignments.module.js';
 import { CastAssignment } from './cast-assignments/entities/cast-assignment.entity.js';
 import { Production } from './productions/entities/production.entity.js';
 import { ProductionsModule } from './productions/productions.module.js';
@@ -35,6 +37,8 @@ import { UsersModule } from './users/users.module.js';
     UsersModule,
     ProductionsModule,
     RehearsalsModule,
+    AvailabilitiesModule,
+    CastAssignmentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
