@@ -3,11 +3,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { AuthModule } from './auth/auth.module.js';
 import { Availability } from './availabilities/entities/availability.entity.js';
 import { CastAssignment } from './cast-assignments/entities/cast-assignment.entity.js';
 import { Production } from './productions/entities/production.entity.js';
 import { Rehearsal } from './rehearsals/entities/rehearsal.entity.js';
 import { User } from './users/entities/user.entity.js';
+import { UsersModule } from './users/users.module.js';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { User } from './users/entities/user.entity.js';
         synchronize: true,
       }),
     }),
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
