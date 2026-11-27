@@ -11,6 +11,7 @@ import {
   AvailabilityStatus,
 } from '../availabilities/entities/availability.entity.js';
 import { timesOverlap } from '../common/date-time.util.js';
+import { MailService } from '../mail/mail.service.js';
 import { Rehearsal } from '../rehearsals/entities/rehearsal.entity.js';
 import { User, UserRole } from '../users/entities/user.entity.js';
 import { CreateCastAssignmentDto } from './dto/create-cast-assignment.dto.js';
@@ -29,6 +30,7 @@ export class CastAssignmentsService {
     private readonly usersRepo: Repository<User>,
     @InjectRepository(Availability)
     private readonly availabilitiesRepo: Repository<Availability>,
+    private readonly mailService: MailService,
   ) {}
 
   findAll(query: QueryCastAssignmentsDto) {
@@ -146,7 +148,22 @@ export class CastAssignmentsService {
     });
 
     const saved = await this.castAssignmentsRepo.save(assignment);
-    return this.findOne(saved.id);
+    const created = await this.findOne(saved.id);
+
+    await this.mailService.sendAssignmentNotification({
+      to: created.actor.email,
+      actorName: created.actor.fullName,
+      productionTitle: created.rehearsal.production?.title ?? 'Production',
+      rehearsalTitle: created.rehearsal.title,
+      roleName: created.roleName,
+      rehearsalDate: created.rehearsal.rehearsalDate,
+      startTime: created.rehearsal.startTime,
+      endTime: created.rehearsal.endTime,
+      location: created.rehearsal.location,
+      notes: created.notes,
+    });
+
+    return created;
   }
 
   async update(id: number, dto: UpdateCastAssignmentDto) {

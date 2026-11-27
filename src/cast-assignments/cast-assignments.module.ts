@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '../auth/auth.module.js';
 import { Availability } from '../availabilities/entities/availability.entity.js';
+import { MailModule } from '../mail/mail.module.js';
 import { Rehearsal } from '../rehearsals/entities/rehearsal.entity.js';
 import { User } from '../users/entities/user.entity.js';
 import { CastAssignmentsController } from './cast-assignments.controller.js';
@@ -12,6 +13,7 @@ import { CastAssignment } from './entities/cast-assignment.entity.js';
   imports: [
     TypeOrmModule.forFeature([CastAssignment, Rehearsal, User, Availability]),
     AuthModule,
+    MailModule,
   ],
   controllers: [CastAssignmentsController],
   providers: [CastAssignmentsService],

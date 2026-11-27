@@ -8,6 +8,7 @@ import { AvailabilitiesModule } from './availabilities/availabilities.module.js'
 import { Availability } from './availabilities/entities/availability.entity.js';
 import { CastAssignmentsModule } from './cast-assignments/cast-assignments.module.js';
 import { CastAssignment } from './cast-assignments/entities/cast-assignment.entity.js';
+import { MailModule } from './mail/mail.module.js';
 import { Production } from './productions/entities/production.entity.js';
 import { ProductionsModule } from './productions/productions.module.js';
 import { Rehearsal } from './rehearsals/entities/rehearsal.entity.js';
@@ -39,6 +40,7 @@ import { UsersModule } from './users/users.module.js';
     RehearsalsModule,
     AvailabilitiesModule,
     CastAssignmentsModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

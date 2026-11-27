@@ -12,6 +12,7 @@ import {
 } from '../availabilities/entities/availability.entity.js';
 import { CastAssignment } from '../cast-assignments/entities/cast-assignment.entity.js';
 import { isValidDateString, timesOverlap } from '../common/date-time.util.js';
+import { MailService } from '../mail/mail.service.js';
 import { Production } from '../productions/entities/production.entity.js';
 import { CreateRehearsalDto } from './dto/create-rehearsal.dto.js';
 import { QueryRehearsalsDto } from './dto/query-rehearsals.dto.js';
@@ -29,6 +30,7 @@ export class RehearsalsService {
     private readonly castAssignmentsRepo: Repository<CastAssignment>,
     @InjectRepository(Availability)
     private readonly availabilitiesRepo: Repository<Availability>,
+    private readonly mailService: MailService,
   ) {}
 
   async findAll(query: QueryRehearsalsDto) {
@@ -167,7 +169,23 @@ export class RehearsalsService {
     }
 
     await this.rehearsalsRepo.save(rehearsal);
-    return this.findOne(id);
+    const updated = await this.findOne(id);
+
+    for (const assignment of updated.castAssignments ?? []) {
+      if (assignment.actor?.email) {
+        await this.mailService.sendRehearsalUpdateNotification({
+          to: assignment.actor.email,
+          actorName: assignment.actor.fullName,
+          rehearsalTitle: updated.title,
+          rehearsalDate: updated.rehearsalDate,
+          startTime: updated.startTime,
+          endTime: updated.endTime,
+          location: updated.location,
+        });
+      }
+    }
+
+    return updated;
   }
 
   async remove(id: number) {

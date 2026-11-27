@@ -24,6 +24,16 @@ function toFullTime(t) {
   return t.length === 5 ? t + ':00' : t;
 }
 
+function formatTime12(t) {
+  if (!t) return '';
+  const parts = String(t).split(':');
+  const hour = Number(parts[0]);
+  const minute = parts[1] || '00';
+  const period = hour >= 12 ? 'PM' : 'AM';
+  const hour12 = hour % 12 || 12;
+  return hour12 + ':' + minute + ' ' + period;
+}
+
 function esc(value) {
   const div = document.createElement('div');
   div.textContent = value == null ? '' : String(value);
@@ -130,7 +140,7 @@ async function loadRehearsals() {
             <td>${esc(r.production ? r.production.title : r.productionId)}</td>
             <td>${esc(r.title)}</td>
             <td>${esc(r.rehearsalDate)}</td>
-            <td>${esc(r.startTime)} - ${esc(r.endTime)}</td>
+            <td>${esc(formatTime12(r.startTime))} - ${esc(formatTime12(r.endTime))}</td>
             <td>${esc(r.location || '-')}</td>
             <td>${isDirector ? `<button class="delete-btn" onclick="deleteRehearsal(${r.id})">Delete</button>` : '-'}</td>
           </tr>`,
@@ -142,7 +152,7 @@ async function loadRehearsals() {
     ? rows
         .map(
           (r) =>
-            `<option value="${r.id}">${esc(r.title)} (${esc(r.rehearsalDate)} ${esc(r.startTime)})</option>`,
+            `<option value="${r.id}">${esc(r.title)} (${esc(r.rehearsalDate)} ${esc(formatTime12(r.startTime))})</option>`,
         )
         .join('')
     : '<option value="">No rehearsals</option>';
@@ -160,7 +170,7 @@ async function loadAvailabilities() {
             <td>${a.id}</td>
             <td>${esc(a.user ? a.user.fullName : a.userId)}</td>
             <td>${esc(a.availableDate)}</td>
-            <td>${esc(a.startTime)} - ${esc(a.endTime)}</td>
+            <td>${esc(formatTime12(a.startTime))} - ${esc(formatTime12(a.endTime))}</td>
             <td>${esc(a.status)}</td>
             <td>${esc(a.note || '-')}</td>
             <td>${canDelete ? `<button class="delete-btn" onclick="deleteAvailability(${a.id})">Delete</button>` : '-'}</td>
@@ -181,7 +191,7 @@ async function loadAssignments() {
           (c) => `<tr>
             <td>${c.id}</td>
             <td>${esc(c.rehearsal ? c.rehearsal.title : c.rehearsalId)}</td>
-            <td>${c.rehearsal ? esc(c.rehearsal.rehearsalDate + ' ' + c.rehearsal.startTime + '-' + c.rehearsal.endTime) : '-'}</td>
+            <td>${c.rehearsal ? esc(c.rehearsal.rehearsalDate + ' ' + formatTime12(c.rehearsal.startTime) + ' - ' + formatTime12(c.rehearsal.endTime)) : '-'}</td>
             <td>${esc(c.actor ? c.actor.fullName : c.actorId)}</td>
             <td>${esc(c.roleName)}</td>
             <td>${esc(c.notes || '-')}</td>
